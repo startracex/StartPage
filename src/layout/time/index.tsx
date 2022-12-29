@@ -36,7 +36,7 @@ export default class App extends React.Component<any, any>{
             <div id="timebar">
                {this.props.enable > 0 && (<>
                   <span>
-                     {this.state.date.toLocaleTimeString({ hour12: false })}
+                     {this.state.date.toLocaleTimeString("zh", { hour12: false })}
                   </span>
                </>)}
                {this.props.enable > 1 && (<>

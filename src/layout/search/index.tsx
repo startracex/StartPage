@@ -13,8 +13,17 @@ export default class Search extends React.Component<any, any> {
       document.addEventListener("keydown", (e: any) => {
          if (e.keyCode === 13) {
             this.handelSearch();
+            console.log("enter search")
          }
       })
+   }
+
+   inputOnBlur = () => {
+      this.props.inputOnBlur()
+   }
+
+   inputOnFocus = () => {
+      this.props.inputOnFocus()
    }
 
 
@@ -27,7 +36,7 @@ export default class Search extends React.Component<any, any> {
       this.setState({ value: e.target.value });
    };
    handelSearch = () => {
-      switch (this.props.engine) {
+      switch (Number(this.props.engine)) {
          case 0:
             //bing cn
             window.location.href = "https://cn.bing.com/search?q=" + this.state.value;
@@ -48,11 +57,21 @@ export default class Search extends React.Component<any, any> {
             //baidu
             window.location.href = "https://www.baidu.com/s?wd=" + this.state.value;
             break;
+         default:
+            window.location.href = "https://cn.bing.com/search?q=" + this.state.value;
+            break
       }
    }
    render(): React.ReactNode {
+
       return <div id="searchbar">
-         <input type="search" value={this.state.value} onChange={this.handleChange} />
+
+
+         <input type="search" value={this.state.value}
+            onChange={this.handleChange}
+            onBlur={this.inputOnBlur}
+            onFocus={this.inputOnFocus}
+         />
          <button id="search" onClick={this.handelSearch} >
             <svg className="icon" viewBox="0 0 1024 1024" version="1.1" p-id="3056" width="32"
                height="32">

@@ -22,6 +22,17 @@ class App extends React.Component<any, any> {
     console.table(this.state)
   }
 
+  inputOnBlur = () => {
+    this.setState(
+      { InoutFocused: false }
+    )
+  }
+  inputOnFocus = () => {
+    this.setState(
+      { InoutFocused: true }
+    )
+  }
+
   handleBC = (e: any) => {
     this.setState({
       BackgroundColor: e.target.value
@@ -100,16 +111,20 @@ class App extends React.Component<any, any> {
   }
   render(): React.ReactNode {
     document.body.style.backgroundColor = this.state.BackgroundColor
-
+    let FocusStyle = this.state.InoutFocused ? "#33333333" : ""
     return (
       <>
-        <Img bing={this.state.BackgroundImage}></Img>
-        <main style={{
-          opacity: this.state.UIOpacity,
-        }}>
-          <Time enable={this.state.TimeBarDisplay} />
-          <Search engine={this.state.SearchEngine} />
-        </main>
+        <div style={{ height: "100vh", backgroundColor: FocusStyle }}>
+          <main style={{
+            opacity: this.state.UIOpacity,
+          }}>
+            <Time enable={this.state.TimeBarDisplay} />
+            <Search engine={this.state.SearchEngine}
+              inputOnBlur={this.inputOnBlur}
+              inputOnFocus={this.inputOnFocus}
+            />
+          </main>
+        </div>
         <footer>
           <div id="switch">
             <svg className="rotate" width="54" height="54" viewBox="0 0 48 48" fill="none">
@@ -119,7 +134,7 @@ class App extends React.Component<any, any> {
                 strokeLinejoin="round" />
             </svg>
           </div>
-          <div className="setting">
+          <div className="setting"  >
             <div>
               <h3>背景图像</h3>
               <input style={{ width: "11.8em" }} type="button" value={this.state.BackgroundImage ? "关闭必应每日图像" : "启用必应每日图像"} onClick={this.handleBI} />
@@ -137,7 +152,7 @@ class App extends React.Component<any, any> {
             <div>
               <h3>UI</h3>
               <input type="range" value={this.state.UIOpacity} max="1" min="0.20" step="0.01" onChange={this.handleUIO} />
-              {this.state.UIOpacity == 1 ? "1.00" : String(this.state.UIOpacity).padEnd(4, "0")}
+              {this.state.UIOpacity === 1 ? "1.00" : String(this.state.UIOpacity).padEnd(4, "0")}
             </div>
             <div>
               <h3>搜索引擎</h3>
@@ -168,8 +183,16 @@ class App extends React.Component<any, any> {
             <h3>
               <a href="https://github.com/STARTRACEX">&copy; {new Date().getFullYear()} STARTRACEX</a>
             </h3>
+            <details>
+              <summary>
+                Version 1.1
+              </summary>
+              <a href="/">v1.x</a>
+              <a href="/v0.html">v0.x</a>
+            </details>
           </div>
         </footer>
+        <Img bing={this.state.BackgroundImage}></Img>
       </>
     );
   }

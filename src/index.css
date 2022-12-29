@@ -1,11 +1,18 @@
-* {
-   box-sizing: border-box;
-}
-
 body {
    margin: 0;
    width: 100%;
    overflow: hidden;
+   animation: start normal .4s;
+}
+
+@keyframes start {
+   from {
+      filter: blur(2px);
+   }
+
+   to {
+      filter: blur(0);
+   }
 }
 
 button,
@@ -18,9 +25,14 @@ a {
    color: #2e2e2e
 }
 
+div {
+   transition: background-color .3s;
+}
+
 img {
    visibility: hidden;
    position: absolute;
+   top: 0;
    z-index: -1;
    height: 100vh;
    width: 100%;
@@ -84,8 +96,11 @@ span {
    vertical-align: center;
 }
 
-input::-ms-clear,
-input::-webkit-search-cancel-button {
+input[type='search']::-ms-clear,
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
    display: none;
 }
 
@@ -110,14 +125,13 @@ input[type="search"]:focus {
 
 #searchbar {
    height: 48px;
-   max-width: 840px;
-   width: max(70%, 380px);
+   width: min(72%, 840px);
    margin: 0 auto;
    display: flex;
    align-items: center;
    border-radius: 20px;
    position: relative;
-   margin-top: 46px;
+   margin-top: 40px;
 }
 
 #search {
@@ -152,22 +166,34 @@ footer {
 
 .setting:hover,
 #switch:hover~.setting {
-   height: 50vh;
-   overflow-y: auto;
+   height: 58vh;
+}
+
+#switch {
+   opacity: 1;
+   height: 54px;
+   transition: height .8s, opacity .5s;
+}
+
+footer:hover #switch {
+   opacity: 0;
+   height: 0;
 }
 
 #switch,
 .setting {
-   width: max(50%,320px);
+   width: max(50%, 320px);
 }
 
 .setting {
+   border-radius: 12px;
+   overflow-y: auto;
    background-color: #cecece68;
    margin: auto;
    height: 0;
-   transition: all .4s;
+   transition: all .5s;
    font-size: 14px;
-
+   padding: 8px 0;
 }
 
 .setting input,
@@ -198,6 +224,16 @@ footer h3 {
    margin: 0.5em auto 0.15em;
    padding: 2px 6px;
    border-radius: 0 16px;
+}
+
+details {
+   margin: 4px;
+   font-size: 16px;
+}
+
+details a {
+   margin: 4px;
+   display: block;
 }
 
 ::-webkit-scrollbar {
