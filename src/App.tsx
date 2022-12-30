@@ -185,7 +185,7 @@ class App extends React.Component<any, any> {
             </h3>
             <details>
               <summary>
-                Version 1.1
+                Version 1.3
               </summary>
               <a href="/">v1.x</a>
               <a href="/v0.html">v0.x</a>
