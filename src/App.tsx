@@ -1,5 +1,5 @@
 import React from 'react';
-import Time from './layout/time'
+import Time from './layout/time';
 import Search from './layout/search';
 import Img from './layout/img';
 import { save, read, dele } from './func/storage';
@@ -8,7 +8,7 @@ class App extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
-    this.fileInput = React.createRef()
+    this.fileInput = React.createRef();
     this.state = {
       BackgroundColor: read("BC") || "#46D2AF",
       UIOpacity: read("UIO") || 1,
@@ -17,101 +17,101 @@ class App extends React.Component<any, any> {
       TimeBarDisplay: read("TBD") || 3,
       LocalBackgroundImage: read("LBI") || undefined,
       LocalBackgroundName: read("LBN") || undefined,
-    }
-    console.log("Enabled:")
-    console.table(this.state)
+    };
+    console.log("Enabled:");
+    console.table(this.state);
   }
 
   inputOnBlur = () => {
     this.setState(
       { InoutFocused: false }
-    )
-  }
+    );
+  };
   inputOnFocus = () => {
     this.setState(
       { InoutFocused: true }
-    )
-  }
+    );
+  };
 
   handleBC = (e: any) => {
     this.setState({
       BackgroundColor: e.target.value
-    })
-    save('BC', e.target.value)
-  }
+    });
+    save('BC', e.target.value);
+  };
   handleUIO = (e: any) => {
     this.setState(
       {
         UIOpacity: e.target.value
       }
-    )
-    save('UIO', e.target.value)
-  }
+    );
+    save('UIO', e.target.value);
+  };
   handleBI = () => {
-    var s = !this.state.BackgroundImage
+    var s = !this.state.BackgroundImage;
     this.setState(
       {
         BackgroundImage: !this.state.BackgroundImage
       }
-    )
-    save("BI", s)
-    console.log(s)
+    );
+    save("BI", s);
+    console.log(s);
     if (s && !this.state.Changed)
       this.setState(
         {
           LoadingText: <span style={{ position: "absolute" }}>正在请求</span>
         }
-      )
+      );
     setTimeout(() => {
       this.setState(
         {
           Changed: true,
           LoadingText: <></>
         }
-      )
-    }, 850)
-  }
+      );
+    }, 850);
+  };
   handleSE = (e: any) => {
     this.setState(
       {
         SearchEngine: Number(e.target.value)
       }
-    )
-    save('SE', e.target.value)
-  }
+    );
+    save('SE', e.target.value);
+  };
   handleTBD = (e: any) => {
     this.setState(
       {
         TimeBarDisplay: Number(e.target.value)
       }
-    )
-    save('TBD', e.target.value)
-  }
+    );
+    save('TBD', e.target.value);
+  };
   handleLBI = () => {
-    var name = this.fileInput.current.files[0].name
+    var name = this.fileInput.current.files[0].name;
     var file = this.fileInput.current.files[0];
     this.setState(
       { LocalBackgroundName: name }
-    )
-    if (!/image\/\w+/.test(file.type)) return
+    );
+    if (!/image\/\w+/.test(file.type)) return;
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      save("LBI", this.result)
-      save("LBN", name)
-    }
-  }
+      save("LBI", this.result);
+      save("LBN", name);
+    };
+  };
   LBIremove = () => {
     this.setState({
       LocalBackgroundImage: undefined,
       LocalBackgroundName: undefined,
-    })
-    dele("LBI")
-    dele("LBN")
-  }
+    });
+    dele("LBI");
+    dele("LBN");
+  };
   render(): React.ReactNode {
-    document.body.style.backgroundColor = this.state.BackgroundColor
-    let FocusStyle = this.state.InoutFocused ? "#33333333" : ""
+    document.body.style.backgroundColor = this.state.BackgroundColor;
+    let FocusStyle = this.state.InoutFocused ? "#33333333" : "";
     return (
       <>
         <div style={{ height: "100vh", backgroundColor: FocusStyle }}>
@@ -197,4 +197,4 @@ class App extends React.Component<any, any> {
     );
   }
 }
-export default App
+export default App;

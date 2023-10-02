@@ -6,32 +6,32 @@ export default class Search extends React.Component<any, any> {
       super(props);
       this.state = {
          value: ""
-      }
+      };
    }
 
    componentDidMount() {
       document.addEventListener("keydown", (e: any) => {
          if (e.keyCode === 13) {
             this.handelSearch();
-            console.log("enter search")
+            console.log("enter search");
          }
-      })
+      });
    }
 
    inputOnBlur = () => {
-      this.props.inputOnBlur()
-   }
+      this.props.inputOnBlur();
+   };
 
    inputOnFocus = () => {
-      this.props.inputOnFocus()
-   }
+      this.props.inputOnFocus();
+   };
 
 
    onKeyDown = (e: any) => {
       if (e.keyCode === 13) {
          this.handelSearch();
       }
-   }
+   };
    handleChange = (e: any) => {
       this.setState({ value: e.target.value });
    };
@@ -59,9 +59,9 @@ export default class Search extends React.Component<any, any> {
             break;
          default:
             window.location.href = "https://cn.bing.com/search?q=" + this.state.value;
-            break
+            break;
       }
-   }
+   };
    render(): React.ReactNode {
 
       return <div id="searchbar">
@@ -80,7 +80,7 @@ export default class Search extends React.Component<any, any> {
                   p-id="3057" fill="#f4f4f4"></path>
             </svg>
          </button>
-      </div>
+      </div>;
    }
 }
 

@@ -7,7 +7,6 @@ export function read(name: string) {
 export function dele(name: string) {
    localStorage.removeItem(name);
 }
-// 尝试解析为json
 export function tryParse(v: any) {
    let x: any;
    try {

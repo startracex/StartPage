@@ -472,16 +472,15 @@
       return v;
     }
     function GetTime() {
-      setTimeout(function () {
+      setInterval(function () {
         if (timeNum > 0)
           document.querySelector('#time_1').innerHTML = new Date().toLocaleTimeString({ hour12: false });
         if (timeNum > 1)
           document.querySelector('#time_2').innerHTML = new Intl.DateTimeFormat("zh", { weekday: 'long' }).format(new Date());
         if (timeNum > 2)
-          document.querySelector('#time_3').innerHTML = Intl.DateTimeFormat("zh").format(new Date()).replaceAll(/\//g, "-")
+          document.querySelector('#time_3').innerHTML = Intl.DateTimeFormat("zh").format(new Date()).replaceAll(/\//g, "-");
         if (timeNum > 3)
           document.querySelector('#time_4').innerHTML = 'UTC+' + (0 - new Date().getTimezoneOffset() / 60);
-        GetTime();
       }, 250);
     }
     var timeNum = read("TBD") || 3;
@@ -503,16 +502,15 @@
       GetTime();
     }
 
-    // 回车搜索
     document.onkeydown = function (e) {
       if (!e) e = window.event;
       if ((e.keyCode || e.which) == 13) SearchBy(SE);
-    }
+    };
     function save(name, value) {
-      window.localStorage.setItem(name, value)
+      window.localStorage.setItem(name, value);
     }
     function read(name) {
-      return tryParse(window.localStorage.getItem(name))
+      return tryParse(window.localStorage.getItem(name));
     }
     function tryParse(v) {
       let x;
@@ -523,7 +521,7 @@
       }
       return x;
     }
-    //初始化搜索引擎
+
     let SE = read("SE") || 0;
     document.querySelector("#SE_" + SE).classList.add("_SEL");
     function setSE(v) {
@@ -561,29 +559,25 @@
     function Searchonclick() {
       SearchBy(SE);
     }
-    // 其他初始化
+
     const id_color = document.querySelector("#color");
     const tag_body = document.querySelector("body");
     const id_BingImages = document.querySelector("#BingImages");
     const id_theme = document.querySelector("#theme");
     const id_opacity = document.querySelector("#opacity");
-    // 输入框是否未被选中
+
     function isFocus(v) {
-      return (v == document.activeElement)
+      return (v == document.activeElement);
     };
-    // 聚焦判断
     function Focus() {
-      // 选中
       if (isFocus(id_SearchInput)) {
         id_theme.style.backgroundColor = "#39393939";
       }
-      // 未被选中
       else {
         id_theme.style.backgroundColor = "#39393900";
       }
     }
 
-    // 背景颜色
     id_color.addEventListener('input', updateColor);
     function updateColor(v) {
       tag_body.style.backgroundColor = v.target.value;
@@ -597,10 +591,8 @@
       save("UIO", inputOpacity.value);
     }
 
-    // 必应每日一图设置
     var isEnableBingImages = read("BI") || 0;
 
-    // 初始化图片
     if (isEnableBingImages == 1) {
       // 启用
       tag_body.setAttribute('background', 'https://api.kdcc.cn/img/bingimg/dayimg.jpg?d=20220801');
@@ -609,9 +601,7 @@
     }
     else {
       id_BingImages.value = "启用必应每日一图";
-
     }
-    // 初始化透明度
     if (read("UIO") == null) {
       id_opacity.value = 0.88;
       id_theme.style.opacity = 0.88;
@@ -620,7 +610,6 @@
       id_opacity.value = read("UIO");
       id_theme.style.opacity = read("UIO");
     }
-    // 初始化颜色
     if (read("BC") == null) {
       id_color.value = "#46d2af";
       tag_body.style.backgroundColor = "#46d2af";
@@ -631,7 +620,6 @@
     }
     id_BingImages.onclick = function () {
       if (isEnableBingImages == 0) {
-        // 禁用
         tag_body.setAttribute('background', 'https://api.kdcc.cn/img/bingimg/dayimg.jpg?d=20220801');
         id_color.style.display = 'none';
         save("BI", 1);
@@ -655,7 +643,6 @@
       else
         return 0;
     }
-    // 对手机适配旋转
     var s = !IsPhone();
     document.querySelector("#up").onclick = function () {
       s++;
@@ -663,7 +650,6 @@
       this.style.transform = "rotate(" + s * 180 + "deg)";
       settingUp();
     };
-    // 对手机适配展开设置选单
     var isUp = !IsPhone();
     function settingUp() {
       if (isUp == 0) {

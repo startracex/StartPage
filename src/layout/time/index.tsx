@@ -5,7 +5,7 @@ export default class App extends React.Component<any, any>{
       super(props);
       this.state = { date: new Date() };
    }
-   timerID: NodeJS.Timer | undefined
+   timerID: NodeJS.Timer | undefined;
    componentDidMount() {
       this.timerID = setInterval(
          () => this.tick(),
@@ -23,13 +23,13 @@ export default class App extends React.Component<any, any>{
       });
    }
    formatdate = (locale: string): string => {
-      const date = new Intl.DateTimeFormat(locale).format(new Date())
-      return date.replaceAll(/\//g, "-")
-   }
+      const date = new Intl.DateTimeFormat(locale).format(new Date());
+      return date.replaceAll(/\//g, "-");
+   };
    formatday = (locale: string): string => {
-      return new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(new Date())
-   }
-   locale: string = typeof this.props.l == "undefined" ? 'zh' : this.props.l
+      return new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(new Date());
+   };
+   locale: string = typeof this.props.l == "undefined" ? 'zh' : this.props.l;
    render(): React.ReactNode {
       if (this.props.enable > 0)
          return (
